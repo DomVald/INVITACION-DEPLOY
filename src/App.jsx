@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 
+
 function App() {
   const targetDate = new Date("2025-06-07T00:00:00").getTime(); // Fecha del evento
   const audioRef = useRef(null);
