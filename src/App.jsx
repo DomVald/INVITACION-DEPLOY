@@ -142,11 +142,11 @@ function App() {
             Medow & Eliut
           </h1>
 
-          <p className="text-4xl text-gray-700 mt-8  font-bold">07/06/25</p>
+          <p className="text-4xl text-gray-700 mt-8  font-bold">7 de junio de 2025</p>
 
           <div className="px-8 py-4">
             {/* Versículo */}
-            <p className="text-xl italic font-bold text-gray-600 mt-4">
+            <p className="text-2xl italic font-extrabold text-[#559270]">
               1 Corintios 13:8 - "El amor nunca falla"
             </p>
 
