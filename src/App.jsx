@@ -162,7 +162,7 @@ function App() {
             <p>
               <span className="text-4xl cursiva">Cuenta regresiva</span>
             </p>
-            {`${timeLeft.days}d : ${timeLeft.hours}h : ${timeLeft.minutes}m : ${timeLeft.seconds}s`}
+            {`${timeLeft.days}d : ${timeLeft.hours}h : ${timeLeft.minutes}m`}
           </div>
 
           <div className="flex justify-end items-center py-15">
