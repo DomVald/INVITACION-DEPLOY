@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { ClipboardCopy, Check } from "lucide-react";
 import "./App.css";
-
 
 function App() {
   const targetDate = new Date("2025-06-07T00:00:00").getTime(); // Fecha del evento
@@ -11,6 +11,10 @@ function App() {
   const [nombre, setNombre] = useState("");
   const [adultos, setAdultos] = useState("");
   const [ninos, setNinos] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [copied2, setCopied2] = useState(false);
+  const num_tarjeta = "4152 3139 2122 1581";
+  const nombre_tarjeta = "Medow Gomez Valdes";
 
   const calculateTimeLeft = () => {
     const now = new Date().getTime();
@@ -48,7 +52,9 @@ function App() {
 
   const generarEnlaceWhatsApp = () => {
     const mensaje = `Hola! Confirmo mi asistencia ☺️ Mi nombre es ${nombre}. Somos ${adultos} adultos y ${ninos} niños.`;
-    const enlace = `https://wa.me/522291692742?text=${encodeURIComponent(mensaje)}`;
+    const enlace = `https://wa.me/522291692742?text=${encodeURIComponent(
+      mensaje
+    )}`;
     window.open(enlace, "_blank");
   };
 
@@ -142,7 +148,9 @@ function App() {
             Medow & Eliut
           </h1>
 
-          <p className="text-4xl text-gray-700 mt-8  font-bold">7 de junio de 2025</p>
+          <p className="text-4xl text-gray-700 mt-8  font-bold">
+            7 de junio de 2025
+          </p>
 
           <div className="px-8 py-4">
             {/* Versículo */}
@@ -287,15 +295,85 @@ function App() {
 
         {/* Sugerencia de regalos */}
         <div className="w-full flex flex-row justify-center  items-center p-8">
-          <div className="w-4/5">
+          <div className="w-4/5 flex flex-col justify-center items-center">
             <h2 className="text-3xl font-bold text-[#A65F2B] mt-8">
               Sugerencia de regalos
             </h2>
             <p className="text-2xl font-bold text-gray-700 mt-4">
               Agradecemos su presencia y generosidad, por ello, si sus
               circunstancias se lo permiten, con gusto aceptaremos su apoyo
-              monetario en esta ocasión.
+              monetario en esta ocasión. <br />
+              <br />
+              - Puede ser en efectivo el dia del evento. <br />- también
+              facilitamos un número de cuenta para quienes prefieran hacerlo
+              así.
             </p>
+            <button
+              className="mt-8 text-2xl px-6 py-2 bg-[#D48C59] text-white rounded-full shadow-md hover:bg-[#A65F2B] transition"
+              onClick={() => document.getElementById("datos_banco").showModal()}
+            >
+              Ver datos bancarios
+            </button>
+            <button onClick={() => window.open('https://www.amazon.com.mx/wedding/registry/1RACJSBEWCG3W', '_blank')} className="mt-8 text-2xl px-6 py-2 bg-[#005225] text-white rounded-full shadow-md hover:bg-[#36644b] transition">
+          Ver mesa de regalos
+            </button>
+            <dialog id="datos_banco" className="modal seria">
+              <div className="modal-box p-6 bg-white text-black">
+                <h3 className="font-bold text-lg">Datos bancarios</h3>
+
+                <div className="mt-4">
+                  <h4>Numero de tarjeta</h4>
+                  <div className="inline-flex items-center bg-gray-100 text-gray-800 rounded-full px-4 py-2 space-x-2 m-2 shadow-sm">
+                    <span>{num_tarjeta}</span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(num_tarjeta);
+                        setCopied(true) ||
+                          setTimeout(() => setCopied(false), 2000);
+                      }}
+                      className="hover:text-blue-500 transition-colors"
+                      title="Copiar al portapapeles"
+                    >
+                      {copied ? (
+                        <Check className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <ClipboardCopy className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <h4>Nombre de cuenta</h4>
+                  <div className="inline-flex items-center bg-gray-100 text-gray-800 rounded-full px-4 py-2 space-x-2 m-2 shadow-sm">
+                    <span>{nombre_tarjeta}</span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(nombre_tarjeta);
+                        setCopied2(true) ||
+                          setTimeout(() => setCopied2(false), 2000);
+                      }}
+                      className="hover:text-blue-500 transition-colors"
+                      title="Copiar al portapapeles"
+                    >
+                      {copied2 ? (
+                        <Check className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <ClipboardCopy className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="modal-action flex justify-center">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn bg-red-700 rounded-full border-0 px-8">
+                      CERRAR
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -338,7 +416,6 @@ function App() {
               - Este es un evento formal. Por eso, padres, les pedimos cuiden a
               sus hijos para evitar accidentes. Gracias por su comprensión.
             </p>
-
           </div>
         </div>
 
@@ -374,64 +451,71 @@ function App() {
               />
             </svg>
 
-            <button className="mt-16 text-2xl px-6 py-2 bg-[#D48C59] text-white rounded-full shadow-md hover:bg-[#A65F2B] transition" 
-            onClick={()=>document.getElementById('my_modal_1').showModal()}>
+            <button
+              className="mt-16 text-2xl px-6 py-2 bg-[#D48C59] text-white rounded-full shadow-md hover:bg-[#A65F2B] transition"
+              onClick={() => document.getElementById("my_modal_1").showModal()}
+            >
               Confirmar
             </button>
 
             <dialog id="my_modal_1" className="modal seria">
-  <div className="modal-box p-6 bg-white text-black">
-    <h3 className="font-bold text-lg">Confirma tu asistencia</h3>
-    
-    <label className="block text-left mt-2">
-        <span className="text-gray-700">Nombre:</span>
-        <input
-          type="text"
-          className="input input-bordered bg-white border-black w-full mt-1"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          placeholder="Escribe tu nombre"
-          required
-        />
-      </label>
+              <div className="modal-box p-6 bg-white text-black">
+                <h3 className="font-bold text-lg">Confirma tu asistencia</h3>
 
-      <label className="block text-left mt-2">
-        <span className="text-gray-700">Número de adultos:</span>
-        <input
-          type="number"
-          placeholder="Ingresa el número de adultos"
-          className="input input-bordered bg-white border-black w-full mt-1"
-          value={adultos}
-          onChange={(e) => setAdultos(e.target.value)}
-          min="0"
-          required
-        />
-      </label>
+                <label className="block text-left mt-2">
+                  <span className="text-gray-700">Nombre:</span>
+                  <input
+                    type="text"
+                    className="input input-bordered bg-white border-black w-full mt-1"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                    placeholder="Escribe tu nombre"
+                    required
+                  />
+                </label>
 
-      <label className="block text-left mt-2">
-        <span className="text-gray-700">Número de niños:</span>
-        <input
-          type="number"
-          placeholder="Ingresa el número de niños"
-          className="input input-bordered bg-white border-black w-full mt-1"
-          value={ninos}
-          onChange={(e) => setNinos(e.target.value)}
-          min="0"
-          required
-        />
-      </label>
+                <label className="block text-left mt-2">
+                  <span className="text-gray-700">Número de adultos:</span>
+                  <input
+                    type="number"
+                    placeholder="Ingresa el número de adultos"
+                    className="input input-bordered bg-white border-black w-full mt-1"
+                    value={adultos}
+                    onChange={(e) => setAdultos(e.target.value)}
+                    min="0"
+                    required
+                  />
+                </label>
 
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
-        <button className="btn bg-red-700 rounded-full mr-2 border-0">CANCELAR</button>
-      </form>
-      <button className="btn bg-green-700 rounded-full border-0 "
-      onClick={generarEnlaceWhatsApp}
-      >ENVIAR</button>
-    </div>
-  </div>
-</dialog>
+                <label className="block text-left mt-2">
+                  <span className="text-gray-700">Número de niños:</span>
+                  <input
+                    type="number"
+                    placeholder="Ingresa el número de niños"
+                    className="input input-bordered bg-white border-black w-full mt-1"
+                    value={ninos}
+                    onChange={(e) => setNinos(e.target.value)}
+                    min="0"
+                    required
+                  />
+                </label>
+
+                <div className="modal-action">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn bg-red-700 rounded-full mr-2 border-0">
+                      CANCELAR
+                    </button>
+                  </form>
+                  <button
+                    className="btn bg-green-700 rounded-full border-0 "
+                    onClick={generarEnlaceWhatsApp}
+                  >
+                    ENVIAR
+                  </button>
+                </div>
+              </div>
+            </dialog>
 
             {/* Mensaje de agradecimiento */}
             <p className="text-2xl text-gray-700 mt-12">
