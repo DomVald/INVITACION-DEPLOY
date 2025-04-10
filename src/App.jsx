@@ -363,6 +363,7 @@ function App() {
                     </button>
                   </div>
                 </div>
+                <h4 className="font-bold mt-4">Banco: BBVA</h4>
 
                 <div className="modal-action flex justify-center">
                   <form method="dialog">
@@ -410,7 +411,8 @@ function App() {
             <div className="flex justify-start space-x-4 my-6">
               <div className="w-10 h-10 bg-white border border-gray-700 shadow-xl rounded-full"></div>
               <div className="w-10 h-10 bg-beige border shadow-xl border-gray-700 rounded-full"></div>
-              <div className="w-10 h-10 bg-[#A65F2B] border shadow-xl border-gray-700 rounded-full"></div>
+              <div className="w-10 h-10 bg-[#004e2f] border shadow-xl border-gray-700 rounded-full"></div>
+              <div className="w-10 h-10 bg-[#e48989] border shadow-xl border-gray-700 rounded-full"></div>
             </div>
             <p className="text-md text-gray-700 text-left mt-2">
               - Este es un evento formal. Por eso, padres, les pedimos cuiden a
